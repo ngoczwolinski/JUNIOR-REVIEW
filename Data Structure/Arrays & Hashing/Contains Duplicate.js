@@ -1,23 +1,18 @@
 /**
- * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ * Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
-An input string is valid if:
-
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
-Every close bracket has a corresponding open bracket of the same type.
  
 
 Example 1:
 
-Input: s = "()"
+Input: nums = [1,2,3,1]
 Output: true
 Example 2:
 
-Input: s = "()[]{}"
-Output: true
+Input: nums = [1,2,3,4]
+Output: false
 Example 3:
 
-Input: s = "(]"
-Output: false
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
+Output: true
  */
