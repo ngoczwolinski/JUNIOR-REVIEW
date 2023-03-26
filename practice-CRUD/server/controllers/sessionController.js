@@ -4,7 +4,7 @@ const sessionController = {};
 
 // check if user has a logged in session
 sessionController.isLoggedIn = (req, res, next) => {
-    console.log('we need to check if there\'s a cookie, and if said cookie has an id that matches a session id', req.cookies);
+    // console.log('we need to check if there\'s a cookie, and if said cookie has an id that matches a session id', req.cookies);
 
     Session.findOne(
         { cookieID: req.cookies.sessionID },
@@ -13,7 +13,7 @@ sessionController.isLoggedIn = (req, res, next) => {
                 return next('sessionController.isLoggedIn: ' + JSON.stringify(error));
             }
             else if (!session) {
-                console.log('req.cookies', req.cookies);
+                // console.log('req.cookies', req.cookies);
                 res.redirect('/login');
             }
             else {
@@ -34,7 +34,7 @@ sessionController.startSession = (req, res, next) => {
                 return next('sessionController.startSession, ' + JSON.stringify(error));
             }
             else {
-              console.log("You just created a user, here is the session ", session);
+            //   console.log("You just created a user, here is the session ", session);
               return next();
             } 
         });

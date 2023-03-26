@@ -34,7 +34,7 @@ pokeController.createPokemon = (req, res, next) => {
             if (error) {
                 return next('Trouble creating pokemon in userController.js ' + JSON.stringify(error));
             } else {
-                console.log("just created pokemon ", pokemon);
+                // console.log("just created pokemon ", pokemon);
                 res.locals.pokemon = pokemon;
                 return next();
             }
@@ -47,18 +47,18 @@ pokeController.getPokemon = (req, res, next) => {
     // remember sessionID and userID are the same
     const { sessionID } = req.cookies;
 
-    console.log('inside getPokemon');
+    // console.log('inside getPokemon');
 
     User.findOne( 
         { _id : sessionID },
         (error, user) => {
 
-            console.log('inside user find one');
+            // console.log('inside user find one');
             if (error) {
                 return next('pokeController.getPokemon: ' + JSON.stringify(error));
             }
             else if (!user) {
-                console.log('if user does not exist, we cannot get its pokemon');
+                // console.log('if user does not exist, we cannot get its pokemon');
                 res.redirect('/login');
             }
             else {

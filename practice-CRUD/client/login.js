@@ -1,19 +1,17 @@
 // we should only do DOM manipulation once the DOM has been fully loaded
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form');
 
-    const form = document.querySelector('form');
-    
-
-    form.addEventListener('submit', (e) => processData(e));
-})
+  form.addEventListener('submit', (e) => processData(e));
+});
 
 function processData(e) {
-    // e.preventDefault();
+  // e.preventDefault();
 
-    // grab the login values
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+  // grab the login values
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
-    console.log(username);
-    console.log(password);
+  // console.log(username);
+  // console.log(password);
 }
