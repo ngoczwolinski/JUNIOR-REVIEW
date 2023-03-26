@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Dashboard </title>
+        <script src="dashboard.js"></script>
+        <style>
+            img {
+                display: inline-block;
+            }
+            p {
+                text-align: center;
+            }
+            #root {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            form {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 style="text-align: center; color: purple;"> Pokemon Collection </h1>
+        <h3> Add Pokemon </h3>
+        <button id="pokemon"> Get Pokemon </button>
+        <form>
+            <label for="pastName"> Past Name </label>
+            <input type="text" name="pastName" id="pastName" disabled>
+            <label for="newName"> New Name </label>
+            <input type="text" name="newName" id="newName">
+            <button type="submit"> Update </button>
+        </form>
+        <div id="root">
+
+        </div>
+    </body>
+</html>
