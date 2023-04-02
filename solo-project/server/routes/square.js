@@ -15,9 +15,9 @@ router.post('/', verifySession, createSquare, (req, res, next) => {
   return res.status(201).json(res.locals.newSquare);
 }); 
 
-// router.get('/getsquares', verifySession, getSquares, (req, res, next) => {
-//   return res.status(201).json(res.locals.squares);
-// });
+router.get('/getsquares', verifySession, getSquares, (req, res, next) => {
+  return res.status(201).json(res.locals.squares);
+});
 
 // // PUT request to data base to show all reciepes in db
 // router.put('/', putMethod, (req, res, next) => {

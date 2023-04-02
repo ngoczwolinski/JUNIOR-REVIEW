@@ -1,5 +1,6 @@
 import React from 'react';
 import {useEffect,useState} from 'react'
+import Squares from './Squares.jsx'
  
 const MakerSquare = () => {
   const [squares, setSquares] = useState([]);

@@ -21,4 +21,4 @@ const Squares = ({ squares }) => {
     
 }
 
-export default Squares;
+export default Squares; 
