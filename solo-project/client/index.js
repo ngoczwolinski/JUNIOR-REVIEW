@@ -2,11 +2,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Error404 from './components/Error404.jsx';
 import Nav from './components/Nav.jsx';
 import Home from './components/Home.jsx';
-import FirstPath from './components/FirstPath.jsx';
+import MakerSquare from './components/MakerSquare.jsx';
 import Login from './components/Login.jsx';
+import SignUp from './components/SignUp.jsx';
 
 // ----------------------- START OF REACT & REACT ROUTER -----------------------
 const domNode = document.getElementById('root');
@@ -16,10 +16,10 @@ root.render(
   <BrowserRouter>
     <Nav />
     <Routes>
-      <Route path="/FirstPath" element={<FirstPath />} />
-      <Route path="/Login" element={<Login />} />
+      <Route path="/makersquare" element={<MakerSquare />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/" element={<Home />} />
-      <Route path="*" element={<Error404 />} />
     </Routes>
   </BrowserRouter>
 );

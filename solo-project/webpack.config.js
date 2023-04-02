@@ -32,16 +32,13 @@ module.exports = {
   },
   devServer: {
     proxy: [
-      //For login, logout, and signup, proxy all request, except for GET request
+      //Proxy all request, except for GET request to '/login' || '/firstpath' || 'signup'
       {
-        context: ['/login', '/logout', '/signup', '/'],
+        context: [ '/**'],
         target: 'http://localhost:3000',
         bypass: (req) => {
-          return req.method === 'GET' ? '/index.html' : undefined;
+          return ((req.url === '/login' || req.url ==='/makersquare' || req.url === '/signup') && req.method === 'GET') ? '/index.html' : undefined;
         },
-      },
-      {
-        '**': 'http://localhost:3000',
       },
     ],
 

@@ -4,33 +4,35 @@ const dotenv = require('dotenv');
 const path = require('path');
 const SALT_WORK_FACTOR = 10;
 
-dotenv.config({
-  path: path.resolve(__dirname, '../../.env')
-});
-
-// here we use .env, grab the url of your database and add it to
-const URI = process.env.MONGO_URI;
 
 // grab schema construtor from mongoose
 const Schema = mongoose.Schema;
 
-// connect database
-mongoose
-  .connect(URI, {
-    // these are parsers to prevent deprecation errors
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // set name of db
-    dbName: 'jr-crud-demo',
-  })
-  .then(() => console.log('db connected'))
-  .catch((err) => `ran into error: ${err}`);
-
 // define schemas for our collections:
 const userSchema = new Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   password: String,
 });
+
+// define schema for Session collection
+const sessionSchema = new Schema({
+  // has an id that gets automatically created
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  createdAt: { type: Date, expires: 30, default: Date.now }
+})
+
+// define schema for Square collection
+const squareSchema = new Schema({
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  color: String,
+  text: String
+})
 
 // create a pre that runs everytime we are adding a user; here it hashes password
 userSchema.pre('save', function (next) {
@@ -43,6 +45,8 @@ userSchema.pre('save', function (next) {
 
 // then create our collection
 const User = mongoose.model('user', userSchema);
+const Session = mongoose.model('session', sessionSchema);
+const Square = mongoose.model('square', squareSchema);
 
 // we then export our collection
-module.exports = User;
+module.exports = { User, Session, Square };
