@@ -8,14 +8,14 @@ const PORT = 3000;
 const dotenv = require('dotenv');
 const userController = require('./controllers/userController');
 const authController = require('./controllers/authController');
-const squareRoute = require('./routes/square')
- 
+const squareRoute = require('./routes/square');
+
 // const apiRouter = require('./routes/apiRoute');
 
 //------------------------------- START OF MIDDLEWARE --------------------------
 //Handle parsing request body
 app.use(express.json());
-// handle parsing the input 
+// handle parsing the input
 app.use(express.urlencoded({ extended: true }));
 
 //Handle requests for static files
@@ -24,32 +24,44 @@ app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 //Transfer all current cookies in browser to the request cookies
 app.use(cookieParser());
 
-const logLocation = (req, res, next) => {
-  console.log('HERE');
-  return next();
-};
-
 // --------------------------- START OF AUTHENTICATION -------------------------
-app.post('/login', userController.verifyUser, authController.makeSession, authController.addCookie, (req, res) => {
-  // res.status(200).send(res.locals.user);
-  return res.redirect('/makersquare')
-});  
+app.post(
+  '/login',
+  userController.verifyUser,
+  authController.makeSession,
+  authController.addCookie,
+  (req, res) => {
+    // res.status(200).send(res.locals.user);
+    return res.redirect('/makersquare');
+  }
+);
 
-app.post('/signup', userController.createUser, authController.makeSession, authController.addCookie, (req, res) => {
-  return res.status(201).json(res.locals.user);
-});
+app.post(
+  '/signup',
+  userController.createUser,
+  authController.makeSession,
+  authController.addCookie,
+  (req, res) => {
+    return res.status(201).json(res.locals.user);
+  }
+);
 
-app.delete('/signout', authController.deleteSession, authController.deleteCookie, (req, res) => {
-  return res.status(201).json(res.locals.deleted);
-});
+app.delete(
+  '/signout',
+  authController.deleteSession,
+  authController.deleteCookie,
+  (req, res) => {
+    return res.status(201).json(res.locals.deleted);
+  }
+);
 
 //-----------------------------START OF ROUTING HANDLERS------------------------
-app.use('/makersquare',squareRoute);
+app.use('/squareAPI', squareRoute);
 
 //---------------------------- START OF GENERAL ROUTES--------------------------
 // route handler to respond with main app
 app.get('/', (req, res) => {
-  console.log('express')
+  console.log('express');
   res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
@@ -57,10 +69,10 @@ app.get('/', (req, res) => {
 
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => {
-  console.log('404 Server')
+  console.log('404 Server');
   res.status(404).sendFile(path.join(__dirname, '../client/404.html'));
 });
- 
+
 //----------------------------- START OF ERROR HANDLER--------------------------
 /**
  * express error handler
@@ -87,9 +99,7 @@ app.listen(PORT, () => {
 });
 
 // --------------------------- CONNECT TO DATABASE -----------------------------
-dotenv.config({
-  path: path.join(__dirname, '/../.env'),
-});
+dotenv.config();
 
 const URI = process.env.MONGO_URI;
 mongoose

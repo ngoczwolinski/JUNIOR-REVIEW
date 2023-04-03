@@ -1,21 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const {createSquare, getSquares} = require('../controllers/squareController');
-const {verifySession} = require('../controllers/authController')
- 
+const { createSquare, getSquares } = require('../controllers/squareController');
+const { verifySession } = require('../controllers/authController');
+
 // // GET request to data base to show all reciepes in db
 // router.get('/', getMethod, (req, res, next) => {
 //   console.log('get squareRoute');
 //   res.status(200).json(res.locals.getInformation);
 // });
 
-// POST request to data base to show all reciepes in db
+// POST request to data base to create a square in db
 router.post('/', verifySession, createSquare, (req, res, next) => {
   console.log('post squareRoute');
   return res.status(201).json(res.locals.newSquare);
-}); 
+});
 
-router.get('/getsquares', verifySession, getSquares, (req, res, next) => {
+router.get('/', verifySession, getSquares, (req, res, next) => {
+  // return as json
   return res.status(201).json(res.locals.squares);
 });
 

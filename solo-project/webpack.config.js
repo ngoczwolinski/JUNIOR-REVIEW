@@ -34,10 +34,15 @@ module.exports = {
     proxy: [
       //Proxy all request, except for GET request to '/login' || '/firstpath' || 'signup'
       {
-        context: [ '/**'],
+        context: ['/**'],
         target: 'http://localhost:3000',
         bypass: (req) => {
-          return ((req.url === '/login' || req.url ==='/makersquare' || req.url === '/signup') && req.method === 'GET') ? '/index.html' : undefined;
+          return (req.url === '/login' ||
+            req.url === '/makersquare' ||
+            req.url === '/signup') &&
+            req.method === 'GET'
+            ? '/index.html'
+            : undefined;
         },
       },
     ],
@@ -45,4 +50,4 @@ module.exports = {
     hot: true,
     port: 8080,
   },
-};  
+};

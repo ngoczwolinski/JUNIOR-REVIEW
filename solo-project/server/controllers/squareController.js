@@ -6,61 +6,55 @@ const squareController = {};
 squareController.getSquares = async (req, res, next) => {
   const { SessionID } = req.cookies;
 
-  let sessionDoc;
+  const userID = '6429fab9ec4d408c20ff3f2d';
 
   try {
-    sessionDoc = await Session.findOne({ id : SessionID });
-  } catch(err) {
-    return next('Could not find session with squareController.getSquares');
-  }
-
-  try {
-      user = await User.findOne({ id : sessionDoc.user_id });
-    } catch(err) {
-      return next('Could not find user with squareController.getSquares');
-  }
-
-  try {
-    squares = await Square.find({ user_id: user.id});
+    const user = await User.findOne({ id: SessionID });
+    console.log({ user });
+    // const squares = await Square.find({ user_id: SessionID });
+    // trying to do it the hardcoded way
+    const squares = await Square.find({ user_id: SessionID });
     res.locals.squares = squares;
+    console.log('squares from squareController.getSquares ', squares);
     return next();
-  } catch(err) {
+  } catch (err) {
     return next('Could not find squares with squareController.getSquares');
-}
+  }
+};
 
-}
+squareController.createSquare = async (req, res, next) => {
+  // they will input a square color in the form
+  const { color } = req.body;
 
-squareController.createSquare= async (req, res, next) => {
-    console.log('Inside postMethod');
-  
-    // they will input a square color in the form
-    const { color } = req.body; 
-  
-    const { SessionID } = req.cookies;
+  const { SessionID } = req.cookies;
 
-    let sessionDoc;
-  
-    try {
-      sessionDoc = await Session.findOne({ id : SessionID });
-    } catch(err) {
-      return next('Could not find session with squareController.createSquare');
-    }
+  let sessionDoc;
+  let user;
+  let square;
 
-    try {
-        user = await User.findOne({ id : sessionDoc.user_id });
-      } catch(err) {
-        return next('Could not find user with squareController.createSquare');
-    }
+  // try {
+  //   sessionDoc = await Session.findOne({ id: SessionID });
+  // } catch (err) {
+  //   return next('Could not find session with squareController.createSquare');
+  // }
 
-    try {
-        square = await Square.create({ user_id: user.id, color: color});
-        res.locals.newSquare = square;
-        return next();
-    } catch(err) {
-        return next('Could not create square with squareController.createSquare');
-    }
+  // try {
+  //   user = await User.findOne({ id: sessionDoc.user_id });
+  // } catch (err) {
+  //   return next('Could not find user with squareController.createSquare');
+  // }
 
+  // hard coding claire's account's id so getSquares can work...
+  const userID = '6429fab9ec4d408c20ff3f2d';
 
-  };
+  try {
+    // userID used to be user.id
+    square = await Square.create({ user_id: userID, color: color });
+    res.locals.newSquare = square;
+    return next();
+  } catch (err) {
+    return next('Could not create square with squareController.createSquare');
+  }
+};
 
 module.exports = squareController;

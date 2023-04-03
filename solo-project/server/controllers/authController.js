@@ -33,7 +33,7 @@ authController.addCookie = async (req, res, next) => {
 
 authController.verifySession = async (req, res, next) => {
   // Extract sessionID from cookie
-  const { sessionID } = req.cookie;
+  const { sessionID } = req.cookies;
   try{
     const sessionDoc = await Session.findOne({ _id : sessionID});
     if (sessionDoc) return next();
